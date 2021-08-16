@@ -9,10 +9,12 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag schealex/aws-cli-docker:$(date +%s)
+      - uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: schealex/aws-cli-docker
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
